@@ -75,6 +75,7 @@ void paraJugar()
 	tipoTablero tablero;
 	tipoJugadores jugadores;
 	int i = 0;
+	char*entrada;
 	jugadores[0].id = ELEGIR_JUGADOR(randInt(0,1));
 	if(jugadores[0].id == 'A')
 		jugadores[1].id = 'Z';
@@ -87,7 +88,8 @@ void paraJugar()
 		imprimirTablero(&tablero);
 		printf("Turno del jugador %c\n", jugadores[i].id);
 		//quejugador e imprime quejugador
-		leerEntrada();
+		entrada = leerEntrada();
+		decidirEntrada(entrada, &jugadores[i]);
 		if(i == 1)
 			i=0;
 		else
@@ -293,7 +295,6 @@ char* leerEntrada()
 		entrada[mem++]=c;
 	}
 	entrada[mem]='\n';
-	decidirEntrada(entrada);
 	return entrada;
 }
 
