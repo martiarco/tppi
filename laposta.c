@@ -135,11 +135,11 @@ int esPosible(tipoTablero*tablero, tipoPosicion celda)
 	for(i=celda.fil-2; i<=celda.fil+2; i++)
 	{
 		if(i > -1 && i<tablero->filas)
-		{									 //recibe el lugar donde hay un blob y revisa
+		{						//recibe el lugar donde hay un blob y revisa
 			for(j=celda.col-2; j<=celda.col+2; j++)
 			{
 				if(j > -1 && j<tablero->columnas)
-				{											 // si hay un vacio a distancia 2 o menos
+				{					 // si hay un vacio a distancia 2 o menos
 					if(tablero->matriz[i][j]=='0')
 						return 1;
 				}
@@ -204,7 +204,7 @@ int jugada(tipoTablero*tablero, tipoMovimiento*celdas, char jugador, int distanc
 //devuelve 0 si hay un error en el movimiento, sino devuelve el tipo de error
 int validarMovimiento(tipoTablero*tablero, tipoMovimiento*celdas,  char jugador, int distancia)
 {
-	if (tablero->matriz[celdas->destino.fil][celdas->destino.col] != '0')
+	if (tablero->matriz[celdas->destino.fil][celdas->destino.col] != '0') //enum o vector de strings
 		return ERROR_MANCHA;
 	else if(FUERA_TABLERO(celdas->origen.fil, celdas->origen.col,tablero->filas,tablero->columnas) || FUERA_TABLERO(celdas->destino.fil, celdas->destino.col, tablero->filas, tablero->columnas))
 		return ERROR_TABLERO;
@@ -241,6 +241,7 @@ void imprimirErrores(int tipoError, tipoMovimiento*celdas)
 		printf("Movimiento fuera del tablero\n");
 }
 
+//decide el tipo de entrada y la valida
 void decidirEntrada(tipoMovimiento*celdas, char*entrada)
 {
 	switch (entrada[0])
@@ -276,6 +277,7 @@ void decidirEntrada(tipoMovimiento*celdas, char*entrada)
 	}
 }
 
+//si no hay errores y hay movimientos posibles, realiza la jugada y cambia de jugador
 void paraJugar(tipoTablero*tablero, tipoJugadores jugadores)
 {
 	int i = 0, distancia;
@@ -305,11 +307,12 @@ int imprimirMenu()
 	do
 	{ 
 		printf("Menu:\n1.Juego de dos jugadores\n2.Juego contra computadora\n3.Recuperar un juego grabado\n4.Terminar\n");
-		opcion = getint("Por favor seleccione una opcion ingresando el correspondiente nro del 1 al 4\n");
+		opcion = getint("Por favor seleccione una opcion ingresando el número correspondiente del 1 al 4\n");
 	}
 	while(opcion<1 || opcion>4);
 	return opcion;
 }
+
 int main()
 {
 	int opcion;
@@ -332,7 +335,7 @@ int main()
 			tipoJugadores jugadores;
 			jugadores[0].id = ELEGIR_JUGADOR(randInt(0,1));
 			jugadores[1].id = OTRO_JUGADOR(jugadores[0].id);
-			jugadores[0].cantidadBlobs = 2;
+			jugadores[0].cantidadBlobs = 2; //hay que inicializar de otra forma
 			jugadores[1].cantidadBlobs = 2;
 			leerDimension(&(tablero.filas), &(tablero.columnas));
 			generaMatriz(tablero.filas, tablero.columnas);
