@@ -25,7 +25,7 @@ typedef struct
 {
 	char id;
 	int cantidadBlobs;
-} tipoJugador;
+} tipoJugador = {'0',2};
 typedef struct
 {
 	char** matriz;
@@ -335,8 +335,6 @@ int main()
 			tipoJugadores jugadores;
 			jugadores[0].id = ELEGIR_JUGADOR(randInt(0,1));
 			jugadores[1].id = OTRO_JUGADOR(jugadores[0].id);
-			jugadores[0].cantidadBlobs = 2; //hay que inicializar de otra forma
-			jugadores[1].cantidadBlobs = 2;
 			leerDimension(&(tablero.filas), &(tablero.columnas));
 			generaMatriz(tablero.filas, tablero.columnas);
 			printf("%d,%d\n", tablero.filas, tablero.columnas);
